@@ -16,21 +16,6 @@
   environment.systemPackages = with pkgs; [
     ghostty
     candy-icons
-
-    # Le thème Splash Screen Kuro v2.0.0 récupéré dynamiquement
-    (stdenv.mkDerivation {
-      pname = "kde-theme-a2n-kuro";
-      version = "2.0.0";
-      src = fetchzip {
-        url = "https://github.com/bouteillerAlan/kuro/archive/refs/tags/v2.0.0.tar.gz";
-        sha256 = "sha256-R4hJgU2eLp2vW6qF0lB0Y/7N6d7NqyO3vV4XG7C1U88=";
-      };
-      dontBuild = true;
-      installPhase = ''
-        mkdir -p $out/share/plasma/look-and-feel/a2n.kuro
-        cp -r * $out/share/plasma/look-and-feel/a2n.kuro/
-      '';
-    })
   ];
 
   # 3. Configurations Globales de l'environnement (XDG Defaults)
@@ -74,11 +59,6 @@
       [General]
       FreeFloating=true
       historyBehavior=ImmediateCompletion
-    '';
-
-    "xdg/ksplashrc".text = ''
-      [KSplash]
-      Theme=a2n.kuro
     '';
 
     "xdg/plasma-localerc".text = ''
