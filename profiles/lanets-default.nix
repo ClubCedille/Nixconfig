@@ -1,4 +1,3 @@
-# profiles/cedille-ws.nix
 { inputs, ... }: {
   imports = [
     # 1. Importer le module disko fourni par les inputs du flake

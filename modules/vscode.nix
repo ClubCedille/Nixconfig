@@ -4,7 +4,9 @@
   # 1. Activation globale de VS Code et de ses extensions système
   programs.vscode = {
     enable = true;
-    package = if (inputs ? nixpkgs-unstable) then inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.vscode else pkgs.vscode;
+    package = if (inputs ? nixpkgs-unstable) 
+      then (import inputs.nixpkgs-unstable { inherit (pkgs) system; config.allowUnfree = true; }).vscode
+      else pkgs.vscode;
 
     # Les extensions système s'installent très bien ici de manière native
     extensions = with pkgs.vscode-extensions; [
