@@ -9,16 +9,16 @@
 
     # 3. Importer les composants logiciels du profil
     ../modules/console-utils.nix
+    ../modules/kde.nix
+    ../modules/networking.nix
     ../modules/starship.nix
     ../modules/vscode.nix
-    ../modules/kde.nix
   ];
 
   # Configuration de base pour permettre le boot après disko-install
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "lan-ets-xx";
+  nixpkgs.config.allowUnfree = true;
 
   # Vos configurations spécifiques à Cédille ci-dessous...
   system.stateVersion = "26.05"; # À adapter selon votre canal NixOS
