@@ -12,6 +12,7 @@
     ../modules/networking.nix
     ../modules/starship.nix
     ../modules/vscode.nix
+    ../modules/zfs.nix
   ];
 
   # Configuration de base pour permettre le boot après disko-install
