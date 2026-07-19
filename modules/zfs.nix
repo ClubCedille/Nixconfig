@@ -8,4 +8,10 @@
 
   services.zfs.autoScrub.enable = true;
   services.zfs.trim.enable = true;
+
+  # TEMPORAIRE - pour diagnostiquer un échec d'import du pool root en initrd
+  # (le compte root de l'initrd est distinct de celui du système principal et
+  # est verrouillé par défaut, donc sulogin refuse tout accès sans ça).
+  # À retirer ou remplacer par un hash de mot de passe une fois le problème résolu.
+  boot.initrd.systemd.emergencyAccess = true;
 }
