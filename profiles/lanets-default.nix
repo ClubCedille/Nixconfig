@@ -1,12 +1,9 @@
 { inputs, ... }: {
   imports = [
-    # 1. Importer le module disko fourni par les inputs du flake
-    inputs.disko.nixosModules.disko
+    # 1. Layout disque (ESP + swap + ZFS), partitionné à la main par install-menu.sh
+    ../modules/disk-layout.nix
 
-    # 2. Importer le layout de disque choisi pour ce profil
-    ../disko/common-single-disk.nix
-
-    # 3. Importer les composants logiciels du profil
+    # 2. Importer les composants logiciels du profil
     ../modules/console-utils.nix
     ../modules/kde.nix
     ../modules/networking.nix
@@ -15,7 +12,7 @@
     ../modules/zfs.nix
   ];
 
-  # Configuration de base pour permettre le boot après disko-install
+  # Configuration de base pour permettre le boot après l'installation
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   nixpkgs.config.allowUnfree = true;
