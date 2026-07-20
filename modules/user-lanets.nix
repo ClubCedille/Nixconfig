@@ -22,7 +22,7 @@
         "networkmanager"
       ];
 
-      hashedPassword = "$6$pQiqkEBV./hE3eMe$9K2aS4tlBo7aIR6vVHEt/8OGr9tRibNjnpTKVzIhmMcDFzUhJ654S0yPDY6s0lw/lX7EwU7Enc849Tzz6WlQB/";
+      hashedPassword = "$6$N7G5vCnv4v1284RI$dnPPYUuGJC32SnxLC2USbfwTrg7UXigwox..XeChieGrYlDRhbgFxaGMB3joB30GTt2qEe4BxvzCyWYljOS5R/";
 
       # openssh.authorizedKeys.keys = [ ... ];
     };
