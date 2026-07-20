@@ -13,7 +13,20 @@
 # pas réussi à stabiliser de façon fiable sur le parc de postes cible. ext4
 # élimine cette classe de problèmes entièrement (pas de hostId, pas
 # d'import de pool, montage par label comme l'ESP).
-{ ... }: {
+{ modulesPath, ... }: {
+  imports = [
+    # Sans hardware-configuration.nix généré par nixos-generate-config, les
+    # modules initrd pour les contrôleurs de stockage virtio (QEMU/KVM) ne
+    # sont PAS inclus par défaut - contrairement à ahci/nvme/sd_mod qui eux
+    # font partie du set de base de NixOS. Résultat : /dev/disk/by-label/root
+    # ne se résout jamais en initrd sur une VM virtio (confirmé en inspectant
+    # l'initrd construit : aucun module virtio_* présent), le boot reste
+    # bloqué sur "A start job is running for /dev/disk/by-label/root".
+    # Ce profil ajoute virtio_pci/virtio_blk/virtio_scsi/virtio_net à
+    # boot.initrd.availableKernelModules - sans coût sur du bare-metal réel.
+    "${modulesPath}/profiles/qemu-guest.nix"
+  ];
+
   fileSystems."/" = {
     device = "/dev/disk/by-label/root";
     fsType = "ext4";
