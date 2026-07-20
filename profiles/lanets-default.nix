@@ -1,6 +1,6 @@
 { inputs, ... }: {
   imports = [
-    # 1. Layout disque (ESP + swap + ZFS), partitionné à la main par install-menu.sh
+    # 1. Layout disque (ESP + swap + root ext4), partitionné à la main par install-menu.sh
     ../modules/disk-layout.nix
 
     # 2. Importer les composants logiciels du profil
@@ -9,7 +9,6 @@
     ../modules/networking.nix
     ../modules/starship.nix
     ../modules/vscode.nix
-    ../modules/zfs.nix
   ];
 
   # Configuration de base pour permettre le boot après l'installation
