@@ -9,6 +9,7 @@
     ../modules/kde.nix
     ../modules/networking.nix
     ../modules/nix-cache-client.nix
+    ../modules/pin-firefox-taskbar.nix
     ../modules/starship.nix
     ../modules/vscode.nix
     ../modules/user-lanets.nix
