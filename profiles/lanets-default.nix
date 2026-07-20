@@ -10,6 +10,7 @@
     ../modules/nix-cache-client.nix
     ../modules/starship.nix
     ../modules/vscode.nix
+    ../modules/user-lanets.nix
   ];
 
   # Configuration de base pour permettre le boot après l'installation
