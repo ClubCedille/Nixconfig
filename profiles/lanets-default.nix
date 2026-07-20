@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ ... }: {
   imports = [
     # 1. Layout disque (ESP + swap + root ext4), partitionné à la main par install-menu.sh
     ../modules/disk-layout.nix
