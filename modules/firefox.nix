@@ -1,5 +1,5 @@
 # modules/firefox.nix
-{ pkgs, ... }: {
+{ ... }: {
 
   programs.firefox = {
     enable = true;
