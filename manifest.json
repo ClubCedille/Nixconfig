@@ -1,5 +1,6 @@
 {
   "profiles": [
-    "lanets-default"
+    "lanets-default",
+    "lanets-cache"
   ]
 }

@@ -1,5 +1,6 @@
 # modules/user-lanets.nix
-{ pkgs, ... }: {
+{ ... }: {
+  users.mutableUsers = false;
   users.users = {
     admin = {
       isNormalUser = true;
@@ -8,7 +9,7 @@
         "wheel"            # Permet le sudo
         "networkmanager"   # Permet de gérer le réseau
       ];
-      hashedPassword = "$6$mKDEB/jVFACLiu4U$oD076rKRPiPWoqhhIgQZ4FZQxNuac16dCmmGg/BZVwEaaTSnzAIvJC.LLZsK4hdLhH5MO0Bm1BkcvP/mQ7Etj0";
+      hashedPassword = "$6$TKfGeY8sbOSwaSvS$Egxmjy6PHSgkGvE1gUu4xQOYPfyZxf6C1JJb9uxQ4g97JxvJXfR71Jj6ZqJSB.qpZPZebhBKeTzd/1sRF.JuX1";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+RLnMHSHLIy8iHgBY0Xkiv3u1zpXzhuXLOwWSvswuR louis@nixos"
       ];
@@ -22,7 +23,7 @@
         "networkmanager"
       ];
 
-      hashedPassword = "$6$N7G5vCnv4v1284RI$dnPPYUuGJC32SnxLC2USbfwTrg7UXigwox..XeChieGrYlDRhbgFxaGMB3joB30GTt2qEe4BxvzCyWYljOS5R/";
+      hashedPassword = "$6$ocsgs1qwmSw.43D6$XOAcVuARfJOKc0qzNcXCZsF.zk83iThm4ZjNYHol/kjYnsreHydD0136BlQgt2WQaeoR7XsLi/d7WChN86csj.";
 
       # openssh.authorizedKeys.keys = [ ... ];
     };
