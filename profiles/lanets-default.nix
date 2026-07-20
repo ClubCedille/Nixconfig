@@ -5,6 +5,7 @@
 
     # 2. Importer les composants logiciels du profil
     ../modules/console-utils.nix
+    ../modules/firefox.nix
     ../modules/kde.nix
     ../modules/networking.nix
     ../modules/nix-cache-client.nix
