@@ -11,6 +11,10 @@
     htop
     tmux
     eza
+    
+    #Kubernetes
+    kubectl
+    helm
 
     # "Nice to have" additionnels pour l'administration et le debug
     curl

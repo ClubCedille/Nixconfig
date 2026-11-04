@@ -1,6 +1,6 @@
 {
   "profiles": [
-    "lanets-default",
-    "lanets-cache"
+    "cedille-desktop",
+    "cedille-event"
   ]
 }
