@@ -22,7 +22,7 @@
       nixosConfigurations = {
 
         # Le nom ici doit correspondre exactement aux choix dans votre manifest.json
-        "cedille-default" = nixpkgs.lib.nixosSystem {
+        "cedille-desktop" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -30,7 +30,7 @@
           ];
         };
 
-        "cedille-cache" = nixpkgs.lib.nixosSystem {
+        "cedille-event" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [

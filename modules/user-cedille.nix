@@ -1,4 +1,4 @@
-# modules/user-lanets.nix
+# modules/user-cedille.nix
 { ... }: {
   users.mutableUsers = false;
   users.users = {
