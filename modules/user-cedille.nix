@@ -9,7 +9,7 @@
         "wheel"            # Permet le sudo
         "networkmanager"   # Permet de gérer le réseau
       ];
-      hashedPassword = "$y$j9T$yC8Th47in7laCT5/bR3b5/$ONb3bDpjH/j20XE3XXfbxqSybMdbtSsjMo6o8FKf8t1";
+      hashedPassword = "$y$j9T$Qe4bGRymWOb4lK1SHi/i2/$X8i9sVJgdatQBwwRBzqPpLjE3kw6mYdnIUlUfyjzZvA";
       openssh.authorizedKeys.keys = [
         "$y$j9T$yC8Th47in7laCT5/bR3b5/$ONb3bDpjH/j20XE3XXfbxqSybMdbtSsjMo6o8FKf8t1"
       ];
