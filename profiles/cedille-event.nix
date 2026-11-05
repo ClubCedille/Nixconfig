@@ -23,8 +23,10 @@
   networking.hostName = "event-01";
 
   system.stateVersion = "26.05";
-  service.cedille-demo = {
-  	enable = true;
-	role = "server";
-	
+  
+  services.cedille-demo = {
+    enable = true;
+    role = "server";
+  };
 }
+
