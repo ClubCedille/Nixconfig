@@ -1,56 +1,48 @@
-{config, lib, pkgs, }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
-	cfg = config.services.cedille-demo;
+  cfg = config.services.cedille-demo;
+  
+  
+  masterIP = "192.168.1.100"; 
 in {
-	options.services.cedille-demo = {
-		enable = mkEnableOption "Configuration du cluster Kubernetes";
+  options.services.cedille-demo = {
+    enable = mkEnableOption "Service Kubernetes Cedille-Demo";
+    
+    role = mkOption {
+      type = types.enum [ "server" "agent" ];
+      default = "agent";
+      description = "Rôle de la machine : 'server' (master) ou 'agent' (worker)";
+    };
+  };
 
-		role = mkOption {
-			type = types.enum [ "server" "agent"]];
-			default = "agent";
-			description = "Role dans le cluster: 'server' (Master) 'agent'(Worker)";
+  config = mkIf cfg.enable {
+    # Inclusion de kubectl pour administrer le cluster
+    environment.systemPackages = [ pkgs.kubectl ];
 
-			};
-
-			serverAddr = mkOption {
-				type = types.nullOr types.str;
-				default = null;
-				description = "Adresse IP du serveur Master";
-
-			};
-
-			tokenFile = mkOption {
-			type = types.path;
-			default = "/var/lib/k3s-token";
-			description = "path vers le fichier contenant le token secret du cluster";
-			};
-		};
-
-
-		config = mkIf cfg.enable {
-    		# Outils d'administration système installés partout
-    		environment.systemPackages = [ pkgs.kubectl ];
-
-    		services.k3s = {
-      			enable = true;
-      			role = cfg.role;
-      			tokenFile = cfg.tokenFile;
-      			# Seuls les agents ont besoin de l'adresse du serveur
-      			serverUrl = if cfg.role == "agent" then "https://${cfg.serverAddr}:6443" else "";
-    		};
-
-    		# Ouverture des ports nécessaires dans le pare-feu NixOS
-    		networking.firewall = {
-      			allowedTCPPorts = if cfg.role == "server" 
-        		then [ 6443 2379 2380 10250 ]; # API Server, Etcd, Kubelet
-        		else [ 10250 ];               # Kubelet
+    # Utilisation de K3s pour une gestion multi-nœuds simple et robuste
+    services.k3s = {
+      enable = true;
+      role = cfg.role;
       
-      			allowedUDPPorts = [ 8472 ];     # Requis pour le réseau Flannel VXLAN
-    		};
-  	};
+      # Si c'est un agent, on le pointe automatiquement vers le serveur maître
+      serverUrl = if cfg.role == "agent" then "https://${masterIP}:6443" else "";
+      
+      # Chemin vers le token secret partagé entre les 3 machines
+      tokenFile = "/var/lib/k3s-token";
+    };
+
+    # Ouverture stricte des ports requis par K3s pour communiquer à 3 machines
+    networking.firewall = {
+      allowedTCPPorts = if cfg.role == "server"
+        then [ 6443 2379 2380 10250 ] # API Server, Etcd, Kubelet
+        else [ 10250 ];               # Kubelet uniquement
+        
+      allowedUDPPorts = [ 8472 ];     # Requis pour Flannel VXLAN (réseau des Pods)
+    };
+  };
 }
 
 
