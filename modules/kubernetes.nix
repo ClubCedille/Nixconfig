@@ -6,7 +6,7 @@ let
   cfg = config.services.cedille-demo;
   
   
-  masterIP = "192.168.1.100"; 
+  masterIP = "10.214.96.83"; 
 in {
   options.services.cedille-demo = {
     enable = mkEnableOption "Service Kubernetes Cedille-Demo";

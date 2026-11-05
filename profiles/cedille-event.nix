@@ -20,7 +20,7 @@
   # Hostname fixe : cette machine est identifiée par son rôle, pas par un
   # numéro de série (contrairement à modules/networking.nix utilisé par les
   # postes du parc).
-  networking.hostName = "event-02";
+  networking.hostName = "event-03";
 
   system.stateVersion = "26.05";
   
