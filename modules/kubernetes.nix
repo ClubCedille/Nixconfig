@@ -45,7 +45,7 @@ in {
     		# Ouverture des ports nécessaires dans le pare-feu NixOS
     		networking.firewall = {
       			allowedTCPPorts = if cfg.role == "server" 
-        		then [ 6443 2379 2380 10250 ] # API Server, Etcd, Kubelet
+        		then [ 6443 2379 2380 10250 ]; # API Server, Etcd, Kubelet
         		else [ 10250 ];               # Kubelet
       
       			allowedUDPPorts = [ 8472 ];     # Requis pour le réseau Flannel VXLAN
