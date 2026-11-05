@@ -28,7 +28,7 @@ in {
       role = cfg.role;
       
       # Si c'est un agent, on le pointe automatiquement vers le serveur maître
-      serverUrl = if cfg.role == "agent" then "https://${masterIP}:6443" else "";
+      serverAddr = if cfg.role == "agent" then "https://${masterIP}:6443" else "";
       
       # Chemin vers le token secret partagé entre les 3 machines
       tokenFile = "/var/lib/k3s-token";
