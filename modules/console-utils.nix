@@ -23,7 +23,7 @@
     jq
     ncdu # Analyseur d'espace disque interactif en mode texte
     tldr # Pages d'aide simplifiées avec exemples pratiques
-    fastfetch # Un neofetch moderne et rapide en C
+    
   ];
 
   programs.bash.interactiveShellInit = ''

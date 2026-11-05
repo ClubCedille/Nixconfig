@@ -10,6 +10,7 @@
     ../modules/console-utils.nix
     ../modules/user-cedille.nix
     ../modules/binary-cache-proxy.nix
+    ../modules/kubernetes.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -19,7 +20,11 @@
   # Hostname fixe : cette machine est identifiée par son rôle, pas par un
   # numéro de série (contrairement à modules/networking.nix utilisé par les
   # postes du parc).
-  networking.hostName = "event";
+  networking.hostName = "event-01";
 
   system.stateVersion = "26.05";
+  service.cedille-demo = {
+  	enable = true;
+	role = "server";
+	
 }
