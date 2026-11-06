@@ -5,8 +5,8 @@ with lib;
 let
   cfg = config.services.cedille-demo;
   
-  
-  masterIP = "10.214.96.83"; 
+  # Utiliser l'IP statique du master sur le réseau privé dédié
+  masterIP = "192.168.100.1"; 
 in {
   options.services.cedille-demo = {
     enable = mkEnableOption "Service Kubernetes Cedille-Demo";
@@ -16,33 +16,40 @@ in {
       default = "agent";
       description = "Rôle de la machine : 'server' (master) ou 'agent' (worker)";
     };
+
+    # Optionnel mais recommandé : permettre de spécifier l'IP locale du nœud
+    nodeIP = mkOption {
+      type = types.str;
+      default = "192.168.100.1";
+      description = "IP statique de la machine dans le cluster (ex: 192.168.100.1, .2, .3)";
+    };
   };
 
   config = mkIf cfg.enable {
-    # Inclusion de kubectl pour administrer le cluster
     environment.systemPackages = [ pkgs.kubectl ];
 
-    # Utilisation de K3s pour une gestion multi-nœuds simple et robuste
     services.k3s = {
       enable = true;
       role = cfg.role;
       
-      # Si c'est un agent, on le pointe automatiquement vers le serveur maître
       serverAddr = if cfg.role == "agent" then "https://${masterIP}:6443" else "";
-      
-      # Chemin vers le token secret partagé entre les 3 machines
       tokenFile = "/var/lib/k3s-token";
+
+      # Forcer K3s et Flannel sur le réseau privé 192.168.100.0/24
+      extraFlags = toString [
+        "--node-ip=${cfg.nodeIP}"
+        "--flannel-iface=eno1" 
+        (if cfg.role == "server" then "--advertise-address=${masterIP} --tls-san=${masterIP}" else "")
+      ];
     };
 
-    # Ouverture stricte des ports requis par K3s pour communiquer à 3 machines
     networking.firewall = {
       allowedTCPPorts = if cfg.role == "server"
-        then [ 6443 2379 2380 10250 ] # API Server, Etcd, Kubelet
-        else [ 10250 ];               # Kubelet uniquement
+        then [ 6443 2379 2380 10250 ]
+        else [ 10250 ];
         
-      allowedUDPPorts = [ 8472 ];     # Requis pour Flannel VXLAN (réseau des Pods)
+      allowedUDPPorts = [ 8472 ];
     };
   };
 }
-
 
