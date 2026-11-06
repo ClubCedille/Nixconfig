@@ -1,28 +1,31 @@
-# modules/networking.nix
 { config, pkgs, ... }:
 
 {
   networking = {
-    hostName = "event-02"; # ou worker1 / worker2
+    hostName = "event-02"; # ou master / worker
 
-    # Garde le comportement DHCP global pour l'accès Internet
-    useDHCP = true;
+    # Désactiver le réseau scripté par défaut au profit de systemd-networkd
+    useDHCP = false;
+    useNetworkd = true;
 
-    # Configuration de la carte Ethernet avec l'IP secondaire
-    interfaces.eno1 = { # <-- Remplacez "enp3s0" par votre vrai nom d'interface
-      useDHCP = true;
-      ipv4.addresses = [{
-        address = "192.168.100.2"; # Mettre .2 et .3 sur les workers
-        prefixLength = 24;
-      }];
-    };
-
-    # Autoriser la communication locale du cluster k3s
     firewall = {
       enable = true;
+      # Autoriser tout le trafic K3s entre les machines du sous-réseau privé
       extraCommands = ''
         iptables -A nixos-fw -s 192.168.100.0/24 -j ACCEPT
       '';
     };
+  };
+
+  # Configuration explicite de l'interface via systemd-networkd
+  systemd.network.networks."10-eno1" = {
+    matchConfig.Name = "eno1"; # Vérifiez le nom avec `ip -br link`
+    networkConfig = {
+      DHCP = "yes"; # Récupère l'IP + gateway de l'école
+    };
+    # IP statique dédiée au cluster K3s
+    address = [
+      "192.168.100.2/24" # Mettre 192.168.100.1/24 sur le master
+    ];
   };
 }
