@@ -6,7 +6,7 @@
 { ... }: {
   imports = [
     ../modules/disk-layout.nix
-
+    ../modules/networking.nix
     ../modules/console-utils.nix
     ../modules/user-cedille.nix
     ../modules/binary-cache-proxy.nix
