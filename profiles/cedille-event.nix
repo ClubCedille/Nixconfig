@@ -20,14 +20,14 @@
   # Hostname fixe : cette machine est identifiée par son rôle, pas par un
   # numéro de série (contrairement à modules/networking.nix utilisé par les
   # postes du parc).
-  networking.hostName = "event-01";
+  networking.hostName = "event-02";
 
   system.stateVersion = "26.05";
   
   services.cedille-demo = {
   enable = true;
-  role = "server"; # <-- et non "master"
-  nodeIP = "192.168.100.1";
+  role = "agent"; # <-- et non "master"
+  nodeIP = "192.168.100.2";
   };
 }
 

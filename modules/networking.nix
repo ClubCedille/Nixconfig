@@ -25,7 +25,7 @@
     };
     # IP statique dédiée au cluster K3s
     address = [
-      "192.168.100.1/24"
+      "192.168.100.2/24"
     ];
   };
 }
