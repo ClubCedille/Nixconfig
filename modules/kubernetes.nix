@@ -38,7 +38,7 @@ in {
       # Forcer K3s et Flannel sur le réseau privé 192.168.100.0/24
       extraFlags = toString [
         "--node-ip=${cfg.nodeIP}"
-        "--flannel-iface=eno1" 
+        "--flannel-iface=eno1" # Remplacez par le nom réel de votre interface
         (if cfg.role == "server" then "--advertise-address=${masterIP} --tls-san=${masterIP}" else "")
       ];
     };
@@ -52,4 +52,3 @@ in {
     };
   };
 }
-
