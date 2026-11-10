@@ -2,7 +2,7 @@
 
 {
   networking = {
-    hostName = "event-02"; # ou master / worker
+    hostName = "event-03"; # ou master / worker
 
     # Désactiver le réseau scripté par défaut au profit de systemd-networkd
     useDHCP = false;
